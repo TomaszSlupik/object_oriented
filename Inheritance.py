@@ -162,4 +162,73 @@ energyTwo = Tiger('Tiger', 2)
 print(f"Energy Drink: {energyOne.brand}. {energyOne.energy()}")
 print(f"Energy Drink: {energyTwo.brand}. Dzisiaj kupiłem: {energyTwo.quantity} szt.")
 
-# 
+# kolejny przykład super ()
+class CoffeDrink():
+    def __init__(self, brand, opinion):
+        self.brand = brand
+        self.opinion = opinion
+    def display_attrs(self):
+        return f"Brand => {self.brand}\nOpinion => {self.opinion}"
+
+
+class TeaDrink(CoffeDrink):
+    def __init__(self, brand, opinion, taste):
+        super().__init__(brand, opinion)
+        self.taste = taste
+
+coffeDrink = CoffeDrink('Costa', 'Pyszna')
+coffeTea = TeaDrink('Lipton', 'całkiem dobra', 'Ok')
+
+print(coffeDrink.display_attrs())
+print(coffeTea.display_attrs())
+print('----')
+
+# self.__dict__.items()
+
+class Pool ():
+    def __init__(self, size, localization):
+        self.size = size
+        self.localization = localization
+
+    def display(self):
+        print(f"Calling from class: {self.__class__.__name__}")
+        for attr, value in self.__dict__.items():   
+            print (f"{attr} => {value}")
+        
+poolFirst = Pool('25m', 'Bielany')
+poolFirst.display()
+print('----')
+
+class PoolOpen (Pool):
+    def __init__(self, size, localization, open):
+        super().__init__(size, localization)
+        self.open = open
+
+poolSecond = PoolOpen('50m', 'Moczydło', '9:00')
+poolSecond.display()
+print('----')
+
+# Pusta klasa oraz check issubclass()
+class Container():
+    pass
+class TemperatureControlledContainer (Container):
+    pass
+class RefrigeratedContainer (TemperatureControlledContainer):
+    pass
+
+print(issubclass(TemperatureControlledContainer, Container))
+print(issubclass(RefrigeratedContainer, TemperatureControlledContainer))
+print(issubclass(RefrigeratedContainer, Container))
+print('----')
+
+# getattr() - wyciągnięcie danych
+class ContainerTemp:
+    cat = 'general'
+
+class Temp(ContainerTemp):
+    temp_range = (-25.0, 5.0)
+
+temp_range_value = getattr(Temp, 'temp_range')
+print(temp_range_value)
+
+# Dziedziczenie wielokrotne 
